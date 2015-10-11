@@ -9,6 +9,6 @@
   "author": "Brenton Alker",
   "license": "ISC",
   "dependencies": {
-    "trailz": "file:trailz"
+    "trailz": "file:../trailz"
   }
 }
