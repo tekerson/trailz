@@ -7,7 +7,11 @@ import { listParks } from "trailz";
 
 export default Reflux.createStore({
   listenables: [ParkActions],
-  parks: [],
+
+  state: {
+    list: [],
+    selected: null,
+  },
 
   init: function () {
     this.onFetchList();
@@ -15,9 +19,14 @@ export default Reflux.createStore({
 
   onFetchList: function () {
     listParks(Db).then((parks) => {
-      this.parks = parks;
-      this.trigger(this.parks);
+      this.state.list = parks;
+      this.trigger(this.state);
     });
   },
+
+  onSelect: function (park) {
+    this.state.selected = park === this.state.selected ? null : park;
+    this.trigger(this.state);
+  }
 
 });
