@@ -6,7 +6,13 @@ export default React.createClass({
     return (
       <div className="trail-list-item">
         <h2>{trail.fields.name.toString()}</h2>
-        <span>Distance: {trail.fields.distance.toString()}</span>
+        <dl>
+          <dt>Distance</dt>
+          <dd>{trail.fields.distance.toString()}</dd>
+
+          <dt>Grade</dt>
+          <dd>{trail.fields.grade.toString()}</dd>
+        </dl>
       </div>
     );
   },
