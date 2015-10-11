@@ -8,14 +8,37 @@ A project where I am playing with a few development ideas. Currently looking at 
 
 Not much. At the moment it just displays a list of "parks" that have walking "trails" of various "distances" and "grades". There's not much interaction, just displaying/collapsing the trail list for a park. It's mostly about exploring the technologies/techniques, not functionality. It's also ugly - no effort has been put into the interface at all.
 
+## Installation
+
+Installation and build requires `npm`, `linklocal`, and `webpack`. Also, `webpack-dev-server` can be used for development.
+
+```shell
+% git clone https://tekerson@bitbucket.org/tekerson/trailz.git
+% cd trailz
+% linklocal
+% npm install
+```
+
+To build:
+```shell
+% webpack
+```
+
+Or, to run in development mode:
+```shell
+% webpack-dev-server
+```
+
 ## Key technical ideas
 
 ### Domain separation/Dependency management
 
 The primary architectural idea is to separate the "business logic" from the application logic. This is achieved with a careful consideration of the dependency graph between modules. Dependencies only ever flow in one direction, the overview is:
+
  * The "domain" (`/lib/trailz`) has no dependencies
  * The "infrastructure" (`/lib/trailz-db`) depends on the domain
  * The "application" (`/app`) depends on the infrastructure and domain
+
 It should be fairly simple to replace the application layer (eg. implement it in AngularJS) without changing the underlying domain and infrastructure layers.
 
 ### Types
