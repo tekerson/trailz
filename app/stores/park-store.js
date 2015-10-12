@@ -1,6 +1,6 @@
-import Reflux from 'reflux';
+import Reflux from "reflux";
 
-import ParkActions from '../actions/park-actions';
+import ParkActions from "../actions/park-actions";
 
 import * as Db from "trailz-db";
 import { listParks } from "trailz";
@@ -27,6 +27,6 @@ export default Reflux.createStore({
   onSelect: function (park) {
     this.state.selected = park === this.state.selected ? null : park;
     this.trigger(this.state);
-  }
+  },
 
 });

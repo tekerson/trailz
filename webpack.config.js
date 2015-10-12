@@ -11,7 +11,7 @@ module.exports = {
   },
 
   resolve: {
-    modulesDirectories: ['node_modules', 'lib']
+    modulesDirectories: ["node_modules", "lib"]
   },
 
   module: {
@@ -23,9 +23,9 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        loader: "file?name=[name].[ext]",
       },
     ],
   },
 
-}
+};
