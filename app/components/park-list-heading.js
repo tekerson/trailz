@@ -10,7 +10,7 @@ export default React.createClass({
     let park = this.props.park;
     return (
       <h1 onClick={this.select}>
-        {park.fields.name.toString()}
+        {park.name.toString()}
       </h1>
     );
   },

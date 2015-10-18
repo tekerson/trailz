@@ -9,7 +9,7 @@ export default React.createClass({
     return (
       <div className="park-info">
         <ParkListHeading park={park} />
-        <TrailList trails={park.fields.trails} />
+        <TrailList trails={park.trails} />
       </div>
     );
   },

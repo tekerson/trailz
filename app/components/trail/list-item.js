@@ -5,13 +5,13 @@ export default React.createClass({
     let trail = this.props.trail;
     return (
       <div className="trail-list-item">
-        <h2>{trail.fields.name.toString()}</h2>
+        <h2>{trail.name.toString()}</h2>
         <dl>
           <dt>Distance</dt>
-          <dd>{trail.fields.distance.toString()}</dd>
+          <dd>{trail.distance.toString()}</dd>
 
           <dt>Grade</dt>
-          <dd>{trail.fields.grade.toString()}</dd>
+          <dd>{trail.grade.toString()}</dd>
         </dl>
       </div>
     );
