@@ -1,10 +1,10 @@
 import React from "react";
 
-import ParkActions from "../../actions/park-actions";
+import UserActions from "../../actions/user-actions";
 
 export default React.createClass({
   select: function () {
-    ParkActions.toggleTrail(this.props.trail);
+    UserActions.toggleTrail(this.props.trail);
   },
   render: function () {
     let trail = this.props.trail;

@@ -2,6 +2,7 @@ import React from "react";
 import Reflux from "reflux";
 
 import ParkStore from "../stores/park-store";
+import SelectedStore from "../stores/selected-store";
 
 import Errors from "./errors";
 
@@ -9,7 +10,7 @@ import ParkList from "./park/list";
 import SelectedList from "./selected/list";
 
 export default React.createClass({
-  mixins: [Reflux.connect(ParkStore)],
+  mixins: [Reflux.connect(ParkStore), Reflux.connect(SelectedStore)],
   getInitialState: function () {
     return {
       list: [],

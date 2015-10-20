@@ -1,26 +1,26 @@
 import Reflux from "reflux";
 
-import ParkActions from "../actions/park-actions";
+import UserActions from "../actions/user-actions";
+import SystemActions from "../actions/system-actions";
 
 import * as Db from "trailz-db";
-import { listParks, toggleTrail } from "trailz";
+import { listParks } from "trailz";
 
 export default Reflux.createStore({
-  listenables: [ParkActions],
+  listenables: [UserActions, SystemActions],
 
   state: {
     list: [],
-    selected: [],
     errors: [],
   },
 
   init: function () {
-    this.fetchList();
+    SystemActions.fetchList();
   },
 
-  fetchList: function () {
+  onFetchList: function () {
     listParks(Db)
-      .then(ParkActions.fetchList.completed);
+      .then(UserActions.fetchList.completed);
   },
 
   onFetchListCompleted: function (parks) {
@@ -29,23 +29,6 @@ export default Reflux.createStore({
   },
 
   onFetchListFailed: function (err) {
-    this.state.errors.push(err);
-    this.trigger(this.state);
-  },
-
-  toggleTrail: function (trail) {
-    toggleTrail(Db, trail)
-      .then(ParkActions.toggleTrail.completed)
-      .catch(ParkActions.toggleTrail.failed);
-  },
-
-  onToggleTrailCompleted: function (selected) {
-    this.state.errors.length = 0;
-    this.state.selected = selected;
-    this.trigger(this.state);
-  },
-
-  onToggleTrailFailed: function (err) {
     this.state.errors.push(err);
     this.trigger(this.state);
   },
