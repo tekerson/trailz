@@ -16,10 +16,15 @@ export default Reflux.createStore({
   },
 
   init: function () {
-    ParkActions.fetchList();
+    this.fetchList();
   },
 
-  onFetchList: function () {
+  togglePark: function (park) {
+    this.state.open = park === this.state.open ? null : park;
+    this.trigger(this.state);
+  },
+
+  fetchList: function () {
     listParks(Db)
       .then(ParkActions.fetchList.completed);
   },
@@ -34,12 +39,7 @@ export default Reflux.createStore({
     this.trigger(this.state);
   },
 
-  onTogglePark: function (park) {
-    this.state.open = park === this.state.open ? null : park;
-    this.trigger(this.state);
-  },
-
-  onToggleTrail: function (trail) {
+  toggleTrail: function (trail) {
     toggleTrail(Db, trail)
       .then(ParkActions.toggleTrail.completed)
       .catch(ParkActions.toggleTrail.failed);
