@@ -6,7 +6,7 @@ import ParkStore from "../stores/park-store";
 import Errors from "./errors";
 
 import ParkList from "./park/list";
-import TrailList from "./trail/list";
+import SelectedList from "./selected/list";
 
 export default React.createClass({
   mixins: [Reflux.connect(ParkStore)],
@@ -23,11 +23,7 @@ export default React.createClass({
       <div className="trailz-app">
         <Errors errors={errors} />
         <ParkList parks={list} />
-        <ul className="selected">
-          <li><h2>Selected Trails</h2>
-            <TrailList trails={selected} />
-          </li>
-        </ul>
+        <SelectedList trails={selected} />
       </div>
     );
   },
