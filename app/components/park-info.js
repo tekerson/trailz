@@ -7,10 +7,10 @@ export default React.createClass({
   render: function () {
     let park = this.props.park;
     return (
-      <div className="park-info">
+      <li className="park-info">
         <ParkListHeading park={park} />
         <TrailList trails={park.trails} />
-      </div>
+      </li>
     );
   },
 });
