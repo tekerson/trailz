@@ -3,11 +3,9 @@ import Reflux from "reflux";
 
 import ParkStore from "../stores/park-store";
 
-import ParkInfo from "./park-info";
-import ParkListHeading from "./park-list-heading";
-
 import Errors from "./errors";
 
+import ParkList from "./park/list";
 import TrailList from "./trail/list";
 
 export default React.createClass({
@@ -15,25 +13,17 @@ export default React.createClass({
   getInitialState: function () {
     return {
       list: [],
-      open: null,
       selected: [],
       errors: [],
     };
   },
   render: function () {
-    let { list, selected, open, errors } = this.state;
+    let { list, selected, errors } = this.state;
     return (
-      <div>
+      <div className="trailz-app">
         <Errors errors={errors} />
-        <ul className="trailz-app">
-          {list.map((park) =>
-            <li key={park.id.toString()}>
-              {(park === open)
-                ? <ParkInfo park={park} />
-                : <ParkListHeading park={park} />
-              }
-            </li>
-          )}
+        <ParkList parks={list} />
+        <ul className="selected">
           <li><h2>Selected Trails</h2>
             <TrailList trails={selected} />
           </li>

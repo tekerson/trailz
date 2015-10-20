@@ -10,18 +10,12 @@ export default Reflux.createStore({
 
   state: {
     list: [],
-    open: null,
     selected: [],
     errors: [],
   },
 
   init: function () {
     this.fetchList();
-  },
-
-  togglePark: function (park) {
-    this.state.open = park === this.state.open ? null : park;
-    this.trigger(this.state);
   },
 
   fetchList: function () {
