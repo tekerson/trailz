@@ -1,36 +1,38 @@
 import Reflux from "reflux";
 
 import UserActions from "../actions/user-actions";
-import SystemActions from "../actions/system-actions";
 
 import * as Db from "trailz-db";
 import { listParks } from "trailz";
 
 export default Reflux.createStore({
-  listenables: [UserActions, SystemActions],
+  listenables: [UserActions],
 
-  state: {
-    list: [],
-    errors: [],
-  },
+  errors: [],
 
   init: function () {
-    SystemActions.fetchList();
+    this.onFetchList();
   },
 
   onFetchList: function () {
     listParks(Db)
-      .then(UserActions.fetchList.completed);
+      .then(UserActions.fetchList.completed)
+      .catch(UserActions.fetchList.failed);
   },
 
   onFetchListCompleted: function (parks) {
-    this.state.list = parks;
-    this.trigger(this.state);
+    this.errors = [];
+    this.trigger({
+      list: parks,
+      errors: this.errors,
+    });
   },
 
   onFetchListFailed: function (err) {
-    this.state.errors.push(err);
-    this.trigger(this.state);
+    this.errors = this.error.concat([err]);
+    this.trigger({
+      errors: this.errors,
+    });
   },
 
 });

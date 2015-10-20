@@ -8,10 +8,7 @@ import { toggleTrail } from "trailz";
 export default Reflux.createStore({
   listenables: [UserActions],
 
-  state: {
-    selected: [],
-    errors: [],
-  },
+  errors: [],
 
   onToggleTrail: function (trail) {
     toggleTrail(Db, trail)
@@ -20,14 +17,18 @@ export default Reflux.createStore({
   },
 
   onToggleTrailCompleted: function (selected) {
-    this.state.errors.length = 0;
-    this.state.selected = selected;
-    this.trigger(this.state);
+    this.errors = [];
+    this.trigger({
+      selected,
+      errors: this.errors,
+    });
   },
 
   onToggleTrailFailed: function (err) {
-    this.state.errors.push(err);
-    this.trigger(this.state);
+    this.errors = this.errors.concat([err]);
+    this.trigger({
+      errors: this.errors,
+    });
   },
 
 });
