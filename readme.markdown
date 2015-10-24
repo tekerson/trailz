@@ -1,5 +1,7 @@
 # Trailz
 
+*Experimental*
+
 ## What is it?
 
 A project where I am playing with a few development ideas. Currently looking at ways of putting together some technologies and ideas including ES2015(ES6), React, (re)flux, flow and Domain Driven Design.
@@ -13,27 +15,27 @@ In short, not much. At the moment it displays a list of "parks" that have "trail
 Installation and build requires `npm`, `linklocal`, and `webpack`. Also, `webpack-dev-server` can be used for development.
 
 ```shell
-% git clone https://tekerson@bitbucket.org/tekerson/trailz.git
-% cd trailz
-% linklocal
-% npm install
+git clone https://tekerson@bitbucket.org/tekerson/trailz.git
+cd trailz
+linklocal
+npm install
 ```
 
 To build:
 ```shell
-% webpack
+webpack
 ```
 
 Or, to run in development mode:
 ```shell
-% webpack-dev-server
+webpack-dev-server
 ```
 
-## Key technical ideas
+## Ideas
 
 ### Domain separation/Dependency management
 
-The primary architectural idea is to separate the business domain from the application logic. This is achieved with a careful consideration of the dependency graph between modules. Dependencies only ever flow in one direction, the overview is:
+The primary idea is to separate the business domain from the application logic. This is achieved with a careful consideration of the dependency graph between modules. Dependencies only ever flow in one direction, the overview is:
 
  * The "domain" (`/lib/trailz`) has no dependencies
  * The "infrastructure" (`/lib/trailz-db`) depends on the domain
@@ -61,11 +63,11 @@ But creating implementations of `Id`, `Name`, `Distance` and `Grade` ensure thos
 ### Object Creation
 
 The objects in the domain modules are created using a method based on that recommended by Douglas Crockford in his 2014 talks (eg. "JavaScript: The better parts" at Nordic.js (https://www.youtube.com/watch?v=PSGEjv3Tqo0). It doesn't use the new ES6 `class` keyword, and even avoids using the `prototype`. In doing so, it avoids some of the pitfalls often encountered and lends itself to a more functional style. It does have some down sides of course.
-The most commonly cited is extra memory usage, but in most cases this won't be significant and if it is, it's fairly simple refactor, as the construction logic is encapsulated in the module.
-It also doesn't do classical inheritance, using more of a mix-in composition style.
+
+The most commonly cited is extra memory usage, but in most cases this won't be significant. If it does become a problem, the construction logic is encapsulated in the module and can easily be refactored to a prototypical pattern.
 
 ### Immutability
 
-Immutability is desirable for a number of reasons - it prevents distant parts of the code modifying data unexpectedly - I believe this is the principle complexities the flux architecture (and many other design principles) try to reduce.
+Immutability is desirable for a number of reasons - it prevents distant parts of the code modifying data unexpectedly - This is the principle complexity the flux architecture (and many other design principles) try to reduce.
 
-The more interesting reason in this project is that it removes the need for much of the information hiding that is usually performed in object-oriented code. When the data is immutable there is less need to hide it. This allows a nice separation of concerns. For example - the `trails-db/map` module is able to map to and from `JSON` without the data types involved having any knowledge of the mapping - data mappers often have to rely on reflection to access private properties - no data hiding allows code to become a set of data transformation pipes and avoid interdependencies.
+The other interesting reason in this project is that it removes the need for much of the information hiding that is usually performed in object-oriented code. When the data is immutable there is less need to hide it. This allows a easy extensibility. For example - the `trails-db/map` module is able to map to and from `JSON` without the data types involved having any knowledge of the mapping - data mappers often have to rely on reflection to access private properties - no data hiding allows code to become a set of data transformation pipes and avoid interdependencies.
